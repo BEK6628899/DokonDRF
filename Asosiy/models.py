@@ -26,7 +26,7 @@ class Mahsulot(models.Model):
 
 class Izoh(models.Model):
     matn = models.CharField(max_length=60)
-    reyting = models.CharField(max_length=10)
+    reyting = models.SmallIntegerField(blank=True,null=True)
     sana = models.DateField()
     profil = models.ForeignKey(Profil, on_delete=models.CASCADE)
     mahsulot = models.ForeignKey(Mahsulot, on_delete=models.CASCADE)
