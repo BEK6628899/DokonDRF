@@ -32,17 +32,18 @@ class ProfilCreateAPI(APIView):
 
 
 class LoginAPIView(APIView):
-    def post(self,request):
+    def post(self, request):
         serializer = LoginUserSerializer(data=request.data)
         if serializer.is_valid():
             user = authenticate(
-                username = serializer.data['username'],
+                request,
+                username=serializer.data['username'],
                 password = serializer.data['password']
                          )
             if user is None:
-                return Response({"xabar":"Bunday user mavjud emas!"},status=status.HTTP_400_BAD_REQUEST)
-            login(user,request)
-            return Response({"xabar":"Tizimga muvoffaqiyatli kirildi!"},status=status.HTTP_200_OK)
+                return Response({"xabar":"Bunaqa user yo'q"}, status=status.HTTP_400_BAD_REQUEST)
+            login(request,user)
+            return Response({"xabar":"Tizimga kirildi"}, status=status.HTTP_200_OK)
         return Response(serializer.errors)
 
 
